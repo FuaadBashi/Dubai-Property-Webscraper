@@ -2,7 +2,7 @@ import smtplib
 import requests
 from bs4 import BeautifulSoup
 
-class BayutScraper:
+class BayutBeautifulSoupScraper:
     def __init__(self, url, headers):
         self.url = url
         self.headers = headers
@@ -64,5 +64,5 @@ if __name__ == "__main__":
         "Accept-Language": "en-GB,en-US;q=0.9,en;q=0.8"
     }
 
-    scraper = BayutScraper(URL, HEADERS)
+    scraper = BayutBeautifulSoupScraper(URL, HEADERS)
     scraper.run()
