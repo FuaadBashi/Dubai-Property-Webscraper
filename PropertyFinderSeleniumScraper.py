@@ -27,7 +27,19 @@ class PropertyFinderSeleniumScraper:
             "Area": [], 
             "Link": [], 
         }
+        self.temp_apartment_data = {
+            "Property Name": [],
+            "Price": [],
+            "Area": [], 
+            "Link": [], 
+        }
         self.villa_data = {
+            "Property Name": [],
+            "Price": [],
+            "Area": [], 
+            "Link": [], 
+        }
+        self.temp_villa_data = {
             "Property Name": [],
             "Price": [],
             "Area": [], 
@@ -235,19 +247,19 @@ class PropertyFinderSeleniumScraper:
                 for i, key in enumerate(keys):
                     self.apartment_data[key].append(item[i])
         else: 
-            list_of_lists = [list(item) for item in zip(*self.villa_data.values())]
-            sorted_data = sorted(list_of_lists, key=lambda x: int((x[1].split(" ")[0].replace(',', ''))))
-            print(sorted_data)
             self.villa_data.clear()
+            self.villa_data = {
+            "Property Name": [],
+            "Price": [],
+            "Area": [], 
+            "Link": [], 
+            }
             for item in sorted_data:
-                for i, key in enumerate(keys):
-                    print(key)
-                    # Ensure the key exists in villa_data as a list
-                    if key not in self.villa_data:
-                        self.villa_data[key] = []
-                    
+                for i, key in enumerate(keys):   
                     # Append the corresponding item value to the list
                     self.villa_data[key].append(item[i])
+            print(self.villa_data)
+
 
     def run_scraper(self, num_pages):
         self.open_website()
@@ -283,8 +295,11 @@ class PropertyFinderSeleniumScraper:
 
 
     def save_to_excel(self, file_name):
-
-        df = pd.DataFrame(self.apartment_data)
+        if (self.searching_is_apartments == True):    
+            df = pd.DataFrame(self.apartment_data)
+        else:
+            df = pd.DataFrame(self.villa_data)
+        
         df.to_excel(file_name, index=False)
         print(f"Data saved to {file_name}")
 
@@ -300,5 +315,5 @@ if __name__ == "__main__":
 
     scraper_villa = PropertyFinderSeleniumScraper()
     scraper_villa.searching_is_apartments = False
-    scraper_villa.run_scraper(num_pages=3)
+    scraper_villa.run_scraper(num_pages=1)
     scraper_villa.close_browser() 
