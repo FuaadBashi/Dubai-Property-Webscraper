@@ -1,0 +1,16 @@
+[project]
+name = "dubai-property-scraper"
+version = "1.0.0"
+description = "Property listing scrapers for Bayut (BeautifulSoup) and Property Finder (Selenium)."
+requires-python = ">=3.10"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+# Script names predate this config; renaming them would break existing instructions.
+ignore = ["N999"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
